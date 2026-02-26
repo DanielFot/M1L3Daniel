@@ -93,6 +93,16 @@ def auto_moderation(message):
         except Exception as e:
             print(f"Auto moderation error: {e}")
 
+@bot.message_handler(content_types=['new_chat_members'])
+def make_some(message):
+    try:
+        bot.send_message(message.chat.id, 'I accepted a new user!')
+
+        # Approve join request (works for private join requests)
+        bot.approve_chat_join_request(message.chat.id, message.from_user.id)
+
+    except Exception as e:
+        print(f"Error handling new member: {e}")
 
 if __name__ == "__main__":
     try:
