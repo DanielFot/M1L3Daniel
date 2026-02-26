@@ -104,6 +104,14 @@ def make_some(message):
     except Exception as e:
         print(f"Error handling new member: {e}")
 
+@bot.message_handler(commands=['admins'])
+def list_admins(message):
+    admins = bot.get_chat_administrators(message.chat.id)
+    text = "Admins:\n"
+    for admin in admins:
+        text += f"- {admin.user.first_name}\n"
+    bot.send_message(message.chat.id, text)
+
 if __name__ == "__main__":
     try:
         bot.infinity_polling(none_stop=True)
